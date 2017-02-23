@@ -65,7 +65,6 @@ def parse(inFile):
     videos = [Video(x[0], x[1]) for x in zipV]
     videos_dict = {}
     for v in videos:
-        if (v.id == 781): print(v.id)
         videos_dict[v.id] = v
     assert(len(videos)==V)
 
@@ -84,13 +83,12 @@ def parse(inFile):
 
     endpoints_dict = {}
     for e in endpoints:
-        print(e.id)
         endpoints_dict[e.id] = e
     # print( [int(k) for k in inF.readline().rstrip().split(' ')])
     requests = []
     for req in range(R):
         (rv, re, rn ) = [int(k) for k in inF.readline().rstrip().split(' ')]
-        requests.append(Request(0, videos_dict[rv], endpoints_dict[re], rn))
+        requests.append(Request(videos_dict[rv], endpoints_dict[re], rn))
     assert(len(requests)==R)
     
     caches = [Cache(id=i, capacity=100) for i in range(C)]
@@ -100,8 +98,9 @@ def parse(inFile):
 
 
 def main():
-    filename = "kittens.in"
+    filename = "data/kittens.in"
 
     parse(filename)
+
 if __name__ == "__main__":
     main()
