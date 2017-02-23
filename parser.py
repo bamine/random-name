@@ -7,18 +7,17 @@ class Video:
         self.id = id
         self.size = size
 
+class Cache:
+    def __init__(self, id: int, capacity):
+        self.id = id
+        self.capacity = capacity
+
 
 class Endpoint:
     def __init__(self, id: int, dc_latency, caches_latency: Dict[Cache, int]):
         self.id = id
         self.dc_latency = dc_latency
         self.caches_latency = caches_latency
-
-
-class Cache:
-    def __init__(self, id: int, capacity):
-        self.id = id
-        self.capacity = capacity
 
 
 class Request:
