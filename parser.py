@@ -22,8 +22,7 @@ class Endpoint:
 
 
 class Request:
-    def __init__(self, id: int, endpoint: Endpoint, video: Video, reqs: int):
-        self.id = id
+    def __init__(self, endpoint: Endpoint, video: Video, reqs: int):
         self.endpoint = endpoint
         self.video = video
         self.reqs = reqs
