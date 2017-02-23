@@ -12,6 +12,7 @@ class Cache:
     def __init__(self, id: int, capacity):
         self.id = id
         self.capacity = capacity
+        self.current_capacity = 0
 
 
 class Endpoint:
