@@ -7,6 +7,7 @@ class Video:
         self.id = id
         self.size = size
 
+
 class Cache:
     def __init__(self, id: int, capacity):
         self.id = id
