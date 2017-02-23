@@ -9,10 +9,10 @@ class Video:
 
 
 class Endpoint:
-    def __init__(self, id: int, dc_latency, caches: Dict[Cache, int]):
+    def __init__(self, id: int, dc_latency, caches_latency: Dict[Cache, int]):
         self.id = id
         self.dc_latency = dc_latency
-        self.caches = caches
+        self.caches_latency = caches_latency
 
 
 class Cache:
@@ -49,3 +49,4 @@ class Problem:
         self.endpoints = endpoints
         self.caches = caches
         self.requests = requests
+
