@@ -33,3 +33,11 @@ class Solution:
             min_latency = min([e.caches_latency[c] for c in cs if c in e.caches_latency.keys()] + [e.dc_latency])
             res += min_latency*req.reqs
         return res
+
+    def submission(self):
+        submission_str = "{n_caches}".format(n_caches=len(self.assignment))
+        for c in self.assignment:
+            submission_str += str(c.id)
+            values = [c.id] + [v.id for v in self.assignment[c]]
+            submission_str += '\n' values.join(' ')
+        return submission_str
