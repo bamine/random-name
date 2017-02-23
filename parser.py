@@ -20,11 +20,15 @@ class Endpoint:
         self.dc_latency = dc_latency
         self.caches = caches
 
+class Endpoint:
+    def __init__(self, id: int, dc_latency, caches_latency: Dict[Cache, int]):
+        self.id = id
+        self.dc_latency = dc_latency
+        self.caches_latency = caches_latency
 
 
 class Request:
-    def __init__(self, id: int, endpoint: Endpoint, video: Video, reqs: int):
-        self.id = id
+    def __init__(self, endpoint: Endpoint, video: Video, reqs: int):
         self.endpoint = endpoint
         self.video = video
         self.reqs = reqs
