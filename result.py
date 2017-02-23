@@ -14,8 +14,8 @@ class Solution:
             sum_size = sum(v.size for v in vs)
             if sum_size > c.capacity:
                 print("NOOOOOOOOOOOOOO  !!!!!!!!!")
-                print("At {0} {1}".format(c.id))
-                break
+                print("At {0}".format(c.id))
+                print("capacity ", sum_size)
 
     def compute_inverse(self):
         for c, vs in self.assignment.items():
@@ -37,7 +37,6 @@ class Solution:
     def submission(self):
         submission_str = "{n_caches}".format(n_caches=len(self.assignment))
         for c in self.assignment:
-            submission_str += str(c.id)
             values = [str(c.id)] + [str(v.id) for v in self.assignment[c]]
             submission_str += '\n' + ' '.join(values)
         return submission_str
