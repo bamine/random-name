@@ -14,6 +14,12 @@ class Cache:
         self.capacity = capacity
         self.current_capacity = 0
 
+    def __hash__(self):
+        return self.id
+
+    def __eq__(self, other):
+        return self.id == other.id
+
 
 class Endpoint:
     def __init__(self, id: int, dc_latency, caches_latency: Dict[Cache, int]):
@@ -58,7 +64,7 @@ def parse(inFile):
 
     l2 = inF.readline().rstrip().split(' ')
     zipV= zip(range(len(l2)), l2)
-    videos = [Video(x[0], x[1]) for x in zipV]
+    videos = [Video(x[0], int(x[1])) for x in zipV]
     videos_dict = {}
     for v in videos:
         videos_dict[v.id] = v
@@ -66,15 +72,18 @@ def parse(inFile):
 
     endpoints = []
     id_endpoint = 0
+    caches = set()
     for endp in range(E):
         (latency, nb_caches) = [int(k) for k in inF.readline().rstrip().split(' ')]
         dic_caches = {}
         for cache in range(nb_caches):
             (idd, lc) = [int(k) for k in inF.readline().rstrip().split(' ')]
             #print(inF.readline().rstrip().split(' '))
-            dic_caches[idd] = Cache(idd, lc)
+            c = Cache(id=idd, capacity=X)
+            caches.add(c)
+            dic_caches[c] = lc
         endpoints.append(Endpoint(id_endpoint, latency, dic_caches))
-        id_endpoint = id_endpoint+1
+        id_endpoint = id_endpoint + 1
     assert(len(endpoints)==E)
 
     endpoints_dict = {}
@@ -84,12 +93,11 @@ def parse(inFile):
     requests = []
     for req in range(R):
         (rv, re, rn ) = [int(k) for k in inF.readline().rstrip().split(' ')]
-        requests.append(Request(videos_dict[rv], endpoints_dict[re], rn))
+        requests.append(Request(endpoint=endpoints_dict[re], video=videos_dict[rv], reqs = rn))
     assert(len(requests)==R)
-    
-    caches = [Cache(id=i, capacity=100) for i in range(C)]
 
-    return Problem(V, E, R, C, X, videos, endpoints, caches, requests)
+    print("caches ", len(caches))
+    return Problem(V, E, R, C, X, videos, endpoints, list(caches), requests)
 
 
 

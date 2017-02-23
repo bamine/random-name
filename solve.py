@@ -19,21 +19,25 @@ def solve1(problem: Problem):
                 video_reqs_grouped[v] += r
             else:
                 video_reqs_grouped[v] = r
-        sorted_videos = sorted(video_reqs_grouped.items(), key=itemgetter(1), reversed=True)
+        sorted_videos = sorted(video_reqs_grouped.items(), key=itemgetter(1), reverse=True)
         sorted_caches = sorted(e.caches_latency.keys(), key=lambda c: e.caches_latency[c])
         cache_counter = 0
         video_counter = 0
         while cache_counter < len(sorted_caches) and video_counter < len(sorted_videos):
+            print("Endpoint {0} cache {1}".format(e.id, cache_counter))
             cache = sorted_caches[cache_counter]
-            video = sorted_videos[video_counter]
-            if cache.current_capacity + video.size <= cache.capacity:
+            print("cache capacity ", cache.current_capacity)
+            video = sorted_videos[video_counter][0]
+            if cache.current_capacity + video.size <\
+                    cache.capacity:
                 if cache in sol:
                     sol[cache].append(video)
                 else:
                     sol[cache] = [video]
-                video += 1
+                cache.current_capacity += video.size
+                video_counter += 1
             else:
-                cache += 1
+                cache_counter += 1
     return sol
 
 

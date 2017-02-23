@@ -1,4 +1,5 @@
 from parser import *
+from solve import *
 
 if __name__ == '__main__':
     video_sizes = [50, 50, 80, 30, 110]
@@ -28,3 +29,6 @@ if __name__ == '__main__':
                       endpoints=endpoints,
                       caches=caches,
                       requests=requests)
+    solution = Solution(problem, solve1(problem))
+    print(solution.submission())
+
