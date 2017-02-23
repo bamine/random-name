@@ -76,7 +76,7 @@ def parse(inFile):
         for cache in range(nb_caches):
             (idd, lc) = [int(k) for k in inF.readline().rstrip().split(' ')]
             #print(inF.readline().rstrip().split(' '))
-            dic_caches[idd] = lc
+            dic_caches[idd] = Cache(idd, lc)
         endpoints.append(Endpoint(id_endpoint, latency, dic_caches))
         id_endpoint = id_endpoint+1
     assert(len(endpoints)==E)
